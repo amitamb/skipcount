@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+  </head>
+  <body>
+    <input id="audio_file" type="file" accept="audio/*"></input>
+    <audio id="audio_player"></audio>
+    <p>
+      Most likely tempo: <span id="output"></span>
+    </p>
+
+    <section class="main-controls">
+      <canvas class="visualizer" height="60px" style="display: none1;"></canvas>
+      <div id="buttons">
+        <button class="record">Record</button>
+        <button class="stop">Stop</button>
+      </div>
+    </section>
+
+    <p>Jumps/peaks:<span id="out">0</span>
+    </p>
+
+    <section class="sound-clips">
+
+
+    </section>
+
+    <h1 id="total_skips" style="display: block; text-align: center; font-size: 224px; font-weight: bold; line-height: 1; margin: 40px auto; padding: 0; color: Red;">0</h1>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="main.js" type="text/javascript"></script>
+    <script src="realtime.js" type="text/javascript"></script>
+  </body>
+</html>
