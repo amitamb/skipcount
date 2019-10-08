@@ -21,53 +21,60 @@ var recording = false;
 
 if (navigator.mediaDevices.getUserMedia) {
   console.log('getUserMedia supported.');
+}
+
+record.onclick = function() {
+
+  navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+
+  recording = true;
+  // mediaRecorder.start();
+  // console.log(mediaRecorder.state);
+  // console.log("recorder started");
+  record.style.background = "red";
+
+  stop.disabled = false;
+  record.disabled = true;
+}
+
+stop.onclick = function() {
+  recording = false;
+  // mediaRecorder.stop();
+  // console.log(mediaRecorder.state);
+  // console.log("recorder stopped");
+  record.style.background = "";
+  record.style.color = "";
+  // mediaRecorder.requestData();
+
+  stop.disabled = true;
+  record.disabled = false;
+}
+
+if (navigator.mediaDevices.getUserMedia) {
+  console.log('getUserMedia supported.');
 
   var constraints = { audio: true };
   var chunks = [];
 
   var onSuccess = function(stream) {
-    var mediaRecorder = new MediaRecorder(stream);
+    // var mediaRecorder = new MediaRecorder(stream);
 
-    visualize(stream);
+    visualizer(stream);
 
-    record.onclick = function() {
-      recording = true;
-      mediaRecorder.start();
-      console.log(mediaRecorder.state);
-      console.log("recorder started");
-      record.style.background = "red";
+    
 
-      stop.disabled = false;
-      record.disabled = true;
-    }
+    // mediaRecorder.onstop = function(e) {
+    //   console.log(beats);
+    // }
 
-    stop.onclick = function() {
-      recording = false;
-      mediaRecorder.stop();
-      console.log(mediaRecorder.state);
-      console.log("recorder stopped");
-      record.style.background = "";
-      record.style.color = "";
-      // mediaRecorder.requestData();
-
-      stop.disabled = true;
-      record.disabled = false;
-    }
-
-    mediaRecorder.onstop = function(e) {
-      console.log(beats);
-    }
-
-    mediaRecorder.ondataavailable = function(e) {
-      chunks.push(e.data);
-    }
+    // mediaRecorder.ondataavailable = function(e) {
+    //   chunks.push(e.data);
+    // }
   }
 
   var onError = function(err) {
     console.log('The following error occured: ' + err);
   }
-
-  navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
 
 } else {
    console.log('getUserMedia not supported on your browser!');
@@ -133,8 +140,8 @@ function processBeat(v) {
     }
 
     // var highThreshold = runningMean + (1 - runningMean)
-    var highThreshold = runningMean * 2.5;
-    console.log(runningMean);
+    var highThreshold = runningMean * 5;
+    // console.log(runningMean);
 
     if ( samplesProcessed > 10 * 2 && v > highThreshold && minVal < runningMean * 0.98 ) {
       // skipSamples = 44 / (3); // Approx 1 sec
@@ -161,7 +168,7 @@ function getRMS(data) {
 var beats = 0;
 var intensities = [];
 
-function visualize(stream) {
+function visualizer(stream) {
   var source = audioCtx.createMediaStreamSource(stream);
 
   var analyser = audioCtx.createAnalyser();
