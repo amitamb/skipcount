@@ -142,12 +142,12 @@ function processBeat(v) {
     }
 
     // var highThreshold = runningMean + (1 - runningMean)
-    var highThreshold = runningMean * 2.5;
+    var highThreshold = runningMean * 2;
     // console.log(runningMean);
 
     if ( samplesProcessed > 10 * 2 && v > highThreshold && minVal < runningMean * 0.98 ) {
       // skipSamples = 44 / (3); // Approx 1 sec
-      skipSamples = 15;
+      skipSamples = 10;
       console.log("Beat");
       totalJumps += 1;
 
