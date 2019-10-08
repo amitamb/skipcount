@@ -12,6 +12,7 @@ var mainSection = document.querySelector('.main-controls');
 stop.disabled = true;
 
 // visualiser setup - create web audio api context and canvas
+var audioCtx;
 var canvasCtx = canvas.getContext("2d");
 
 var recording = false;
@@ -24,7 +25,7 @@ if (navigator.mediaDevices.getUserMedia) {
 
 record.onclick = function() {
 
-  var audioCtx = new (window.AudioContext || webkitAudioContext)();
+  audioCtx = new (window.AudioContext || webkitAudioContext)();
 
   navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
 
