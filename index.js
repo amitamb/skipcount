@@ -142,7 +142,7 @@ function processBeat(v) {
     }
 
     // var highThreshold = runningMean + (1 - runningMean)
-    var highThreshold = runningMean * 5;
+    var highThreshold = runningMean * 2.5;
     // console.log(runningMean);
 
     if ( samplesProcessed > 10 * 2 && v > highThreshold && minVal < runningMean * 0.98 ) {
